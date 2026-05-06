@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
 const Home = () => {
   
 
@@ -10,7 +11,7 @@ const Home = () => {
 
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`http://localhost:5003/api/jobs/local?query=developer&location=${encodeURIComponent(city)}`);
+        const response = await axios.get(`${API_URL}/api/jobs/local?query=developer&location=${encodeURIComponent(city)}`);
         setJobs(response.data.data); 
       } catch (error) {
         console.error('Error fetching job listings:', error);
@@ -20,6 +21,8 @@ const Home = () => {
     useEffect(() => {
     fetchJobs();
     }, []);
+
+    const token = localStorage.getItem("token");
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-10">
@@ -31,7 +34,7 @@ const Home = () => {
           Connect with alumni, find local job opportunities, and grow your professional network.
         </p>
 
-        <div className="flex justify-center space-x-4 mb-10">
+        {!token && (<div className="flex justify-center space-x-4 mb-10">
           <Link to="/login">
             <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
               Login
@@ -42,7 +45,7 @@ const Home = () => {
               Register
             </button>
           </Link>
-        </div>
+        </div>)}
 
         <div>
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
