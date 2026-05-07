@@ -7,7 +7,7 @@ import Admin from './pages/Admin'
 import RegisterForm from './pages/RegisterForm';
 import LoginForm from './pages/LoginForm';
 import Profile from './pages/Profile';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 
 function App() {
 
